@@ -61,14 +61,7 @@ module SearchService
         save_data(data)
 
         begin
-          next_button = @page.link_with(:text => 'Next')
-
-          if next_button == true
-            @page = @page.link_with(:text => 'Next').click
-          else
-            break
-          end
-
+          @page.link_with(:text => 'Next').click
         rescue
           break
         end
