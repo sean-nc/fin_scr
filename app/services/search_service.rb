@@ -9,6 +9,7 @@ module SearchService
       term = SearchTerm.all
 
       term.each do |url|
+        next if url.searched
         driver.navigate.to "https://google.ca/"
         element = driver.find_element(name: 'q')
         element.send_keys url.query
