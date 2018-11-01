@@ -33,7 +33,7 @@ module SearchService
 
       for i in 0..10
         p 'Sleeping...'
-        r_num = rand(20..40)
+        r_num = rand(10..20)
         sleep r_num
         p i
 
