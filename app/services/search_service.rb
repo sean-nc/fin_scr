@@ -11,6 +11,12 @@ module SearchService
       term = SearchTerm.all
 
       term.each do |url|
+        if url.bookmark && url.bookmark.page_number > 10
+          url.bookmark.searched = true
+          url.save
+          next
+        end
+
         begin
           page = @agent.get('https://google.ca/')
           google_form = page.form_with(name: 'f') || page.form_with(name: 'q')
@@ -111,8 +117,9 @@ module SearchService
       if search_term.bookmark.blank?
         page_number = current_page + 1
         search_term.create_bookmark(page_number: page_number)
-      elsif search_term.bookmark.page_number > 10
+      elsif search_term.bookmark.page_number >= 10
         search_term.searched = true
+        search_term.save
       else
         page_number = search_term.bookmark.page_number + 1
         search_term.bookmark.update_attributes(page_number: page_number)
