@@ -8,7 +8,7 @@ module SearchService
       @agent = Mechanize.new()
       @agent.user_agent = Mechanize::AGENT_ALIASES.to_a.sample
 
-      term = SearchTerm.all
+      term = SearchTerm.all.where(searched: false)
 
       term.each do |url|
         if url.searched
@@ -26,7 +26,7 @@ module SearchService
             bookmark = page.link_with(text: "#{page_number}")
 
             if bookmark.blank?
-              next
+              break
             else
               page = bookmark.click
               p "going to page #{page_number}"
