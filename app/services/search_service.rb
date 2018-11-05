@@ -40,7 +40,6 @@ module SearchService
         rescue Mechanize::ResponseCodeError
           p '503 error'
           system("heroku restart")
-          return
         rescue
           next
         end
