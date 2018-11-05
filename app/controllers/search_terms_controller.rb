@@ -41,6 +41,6 @@ class SearchTermsController < ApplicationController
     end
 
     def search_term_params
-      params.require(:search_term).permit(:query)
+      params.require(:search_term).permit(:query, :searched)
     end
 end

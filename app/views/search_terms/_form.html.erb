@@ -17,6 +17,11 @@
     <%= form.text_area :query %>
   </div>
 
+  <div class="field">
+    <%= form.label :searched %>
+    <%= form.select :searched, [['Searched', true], ['Not Searched', false]] %>
+  </div>
+
   <div class="actions">
     <%= form.submit %>
   </div>

@@ -18,6 +18,7 @@
             No
           <% end %>
         </p>
+        <%= link_to 'Show', search_term.query, target: "_blank" %>
         <%= link_to 'Edit', edit_search_term_path(search_term) %>
         <%= link_to 'Destroy', search_term, method: :delete, data: { confirm: 'Are you sure?' } %>
       </ul>
