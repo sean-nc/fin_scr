@@ -1,5 +1,4 @@
 require 'mechanize'
-require 'rake'
 
 module SearchService
   class << self
