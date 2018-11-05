@@ -17,6 +17,10 @@ module SearchService
           next
         end
 
+        if url.searched
+          next
+        end
+
         begin
           page = @agent.get('https://google.ca/')
           google_form = page.form_with(name: 'f') || page.form_with(name: 'q')
