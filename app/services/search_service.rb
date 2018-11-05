@@ -122,16 +122,18 @@ module SearchService
     end
 
     def add_bookmark(current_page, search_term)
+      url = @agent.uri
+
       if search_term.bookmark.blank?
         page_number = current_page + 1
         page_number += 1 if page_number == 1
         search_term.create_bookmark(page_number: page_number,
-                                    url: @agent.uri)
+                                    url: url)
 
       else
         page_number = search_term.bookmark.page_number + 1
         search_term.bookmark.update_attributes(page_number: page_number,
-                                               url: @agent.uri)
+                                               url: url)
       end
     end
   end
