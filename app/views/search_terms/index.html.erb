@@ -4,7 +4,19 @@
       <ul>
         <p>
           <%= search_term.query %><br/>
-          Searched: <%= search_term.searched %>
+          Bookmark: page -
+          <% if search_term.bookmark.blank? %>
+            N/A
+          <% else %>
+            <%= search_term.bookmark.page_number %>
+          <% end %>
+          <br/>
+          Searched:
+          <% if search_term.searched %>
+            Yes
+          <% else %>
+            No
+          <% end %>
         </p>
         <%= link_to 'Show', search_term %>
         <%= link_to 'Edit', edit_search_term_path(search_term) %>
