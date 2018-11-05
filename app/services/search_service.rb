@@ -122,7 +122,7 @@ module SearchService
     end
 
     def add_bookmark(current_page, search_term)
-      url = @agent.uri
+      url = @agent.current_page.uri.to_s
 
       if search_term.bookmark.blank?
         page_number = current_page + 1
