@@ -12,7 +12,7 @@ module SearchService
 
       term.each do |url|
         if url.bookmark && url.bookmark.page_number > 10
-          url.bookmark.searched = true
+          url.searched = true
           url.save
           next
         end
