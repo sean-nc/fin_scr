@@ -1,5 +1,6 @@
 <h1>Search Terms</h1>
 
+  <% if @search_terms %>
     <% @search_terms.each do |search_term| %>
       <ul>
         <p>
@@ -9,6 +10,14 @@
             N/A
           <% else %>
             <%= search_term.bookmark.page_number %>
+            <br/>
+
+            Bookmark URL:
+              <% unless search_term.bookmark.url %>
+              N/A
+            <% else %>
+              <%= search_term.bookmark.url %>
+            <% end %>
           <% end %>
           <br/>
           Searched:
@@ -26,5 +35,6 @@
       <br/>
 
     <% end %>
+  <% end %>
 
 <%= link_to 'New Search Term', new_search_term_path %>

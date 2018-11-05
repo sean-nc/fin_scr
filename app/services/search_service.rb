@@ -10,31 +10,35 @@ module SearchService
       term = SearchTerm.all.where(searched: false)
       # order terms?
 
-      term.each do |url|
-        if url.searched
+      term.each do |search_term|
+        if search_term.searched
           next
         end
 
         begin
-          page = @agent.get('https://google.ca/')
-          google_form = page.form_with(name: 'f') || page.form_with(name: 'q')
-          google_form.q = url.query
-          page = @agent.submit(google_form)
+          if search_term.bookmark && search_term.bookmark.url
+            page = @agent.get(search_term.bookmark.url)
+          else
+            page = @agent.get('https://google.ca/')
+            google_form = page.form_with(name: 'f') || page.form_with(name: 'q')
+            google_form.q = search_term.query
+            page = @agent.submit(google_form)
+          end
 
-          unless url.bookmark.blank? || url.bookmark.page_number == 1
-            page_number = url.bookmark.page_number
+          unless search_term.bookmark.blank? || search_term.bookmark.page_number == 1
+            page_number = search_term.bookmark.page_number
             page_link = page.link_with(text: "#{page_number}")
 
             if page_link.blank?
-              url.searched = true
-              url.save
+              search_term.searched = true
+              search_term.save
             else
               page = page_link.click
               p "going to page #{page_number}"
             end
           end
 
-          loop_through_results(page, url)
+          loop_through_results(page, search_term)
 
         rescue Mechanize::ResponseCodeError
           p '503 error'
@@ -84,7 +88,12 @@ module SearchService
         add_bookmark(page_number, search_term)
 
 
-        break if !@page.link_with(:text => 'Next')
+        if !@page.link_with(:text => 'Next')
+          search_term.searched = true
+          search_term.save
+          break
+        end
+
         p "NEXT LINK: "
         p @page.link_with(:text => 'Next')
         @page = @page.link_with(:text => 'Next').click
@@ -117,13 +126,13 @@ module SearchService
       if search_term.bookmark.blank?
         page_number = current_page + 1
         page_number += 1 if page_number == 1
-        search_term.create_bookmark(page_number: page_number)
-      elsif search_term.bookmark.page_number >= 10
-        search_term.searched = true
-        search_term.save
+        search_term.create_bookmark(page_number: page_number,
+                                    url: @agent.uri)
+
       else
         page_number = search_term.bookmark.page_number + 1
-        search_term.bookmark.update_attributes(page_number: page_number)
+        search_term.bookmark.update_attributes(page_number: page_number,
+                                               url: @agent.uri)
       end
     end
   end
