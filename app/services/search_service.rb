@@ -26,7 +26,7 @@ module SearchService
             bookmark = page.link_with(text: "#{page_number}")
 
             if bookmark.blank?
-              break
+              next
             else
               page = bookmark.click
               p "going to page #{page_number}"
