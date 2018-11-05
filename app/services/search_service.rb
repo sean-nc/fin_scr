@@ -1,5 +1,5 @@
 require 'mechanize'
-
+require 'rake'
 
 module SearchService
   class << self
@@ -24,13 +24,13 @@ module SearchService
 
           unless url.bookmark.blank? || url.bookmark.page_number == 1
             page_number = url.bookmark.page_number
-            bookmark = page.link_with(text: "#{page_number}")
+            page_link = page.link_with(text: "#{page_number}")
 
-            if bookmark.blank?
-              # url.searched = true
-              # url.save
+            if page_link.blank?
+              url.searched = true
+              url.save
             else
-              page = bookmark.click
+              page = page_link.click
               p "going to page #{page_number}"
             end
           end
@@ -39,7 +39,8 @@ module SearchService
 
         rescue Mechanize::ResponseCodeError
           p '503 error'
-          system("heroku restart")
+          system("cd #{Rails.root} && heroku restart")
+          return
         rescue
           next
         end
@@ -52,7 +53,7 @@ module SearchService
 
       for i in 0..2
         p 'Sleeping...'
-        r_num = rand(3..6)
+        r_num = rand(1..2)
         sleep r_num
         p i
 
@@ -61,8 +62,8 @@ module SearchService
         titles = []
         emails = []
 
-        r_num2 = rand(0..2)
-        r_num3 = rand(0..2)
+        r_num2 = rand(0..1)
+        r_num3 = rand(0..1)
 
         @page.search('.r').each do |title|
           title = title.text.split(' | ')[0]
@@ -116,7 +117,7 @@ module SearchService
     def add_bookmark(current_page, search_term)
       if search_term.bookmark.blank?
         page_number = current_page + 1
-        # add check if page number == 1 then 2
+        page_number += 1 if page_number == 1
         search_term.create_bookmark(page_number: page_number)
       elsif search_term.bookmark.page_number >= 10
         search_term.searched = true
