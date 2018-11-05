@@ -11,12 +11,6 @@ module SearchService
       term = SearchTerm.all
 
       term.each do |url|
-        if url.bookmark && url.bookmark.page_number > 10
-          url.searched = true
-          url.save
-          next
-        end
-
         if url.searched
           next
         end
