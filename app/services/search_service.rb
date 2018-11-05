@@ -39,7 +39,7 @@ module SearchService
 
         rescue Mechanize::ResponseCodeError
           p '503 error'
-          system("cd #{Rails.root} && heroku restart")
+          %x[rake heroku_restart]
           return
         rescue
           next

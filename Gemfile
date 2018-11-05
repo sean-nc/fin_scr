@@ -63,3 +63,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Added Gems
 gem 'mechanize' # web scraper
+gem 'platform-api' # heroku api
