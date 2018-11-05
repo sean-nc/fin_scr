@@ -86,16 +86,19 @@ module SearchService
         page_number = @page.search('.cur').text.strip.to_i
         add_bookmark(page_number, search_term)
 
+        next_link = @page.link_with(:text => 'Next')
 
-        if !@page.link_with(:text => 'Next')
-          search_term.searched = true
-          search_term.save
-          break
+        if !next_link
+          if !@page.link_with(:text => "Next")
+            search_term.searched = true
+            search_term.save
+            break
+          end
         end
 
         p "NEXT LINK: "
         p @page.link_with(:text => 'Next')
-        @page = @page.link_with(:text => 'Next').click
+        @page = next_link.click || @page.link_with(:text => "Next").click
       end
     end
 
