@@ -53,7 +53,7 @@ module SearchService
       @page = page
       @url = ''
 
-      for i in 0..2
+      for i in 0..10
         p 'Sleeping...'
         r_num = rand(1..2)
         sleep r_num
