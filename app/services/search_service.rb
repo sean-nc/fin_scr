@@ -30,8 +30,7 @@ module SearchService
             page_link = page.link_with(text: "#{page_number}")
 
             if page_link.blank?
-              search_term.searched = true
-              search_term.save
+              page.link_with(text: "10").click
             else
               page = page_link.click
               p "going to page #{page_number}"
