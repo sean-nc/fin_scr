@@ -1,0 +1,9 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: "Profiles") do |sheet|
+  sheet.add_row %w(id title email)
+
+  @profiles.each do |profile|
+    sheet.add_row [profile.id, profile.title, profile.email]
+  end
+end

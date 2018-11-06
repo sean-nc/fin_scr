@@ -64,3 +64,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 # Added Gems
 gem 'mechanize' # web scraper
 gem 'platform-api' # heroku api
+gem 'rubyzip', '>= 1.2.1' # axlsx required
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844' # excel exporting
+gem 'axlsx_rails' # excel exporting

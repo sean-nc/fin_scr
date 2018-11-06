@@ -1,6 +1,22 @@
+<%= form_tag('/profiles', method: :get) do %>
+  <%= label_tag "Search by name or email" %>
+  <%= text_field_tag(:query) %>
+
+  <%= submit_tag('search') %>
+<% end %>
+
+<% if @profiles.blank? %>
+  There are no profiles.
+<% end %>
+
 <% @profiles.each do |profile| %>
   <p>
     <%= profile.email %><br/>
     <%= profile.title %><br/>
   </p>
 <% end %>
+
+<p>
+  <%= link_to 'Donwload as .xlsx',
+              profiles_path(format: :xlsx, query: params[:query]) %>
+</p>

@@ -3,10 +3,15 @@ class StaticPagesController < ApplicationController
   end
 
   def profiles
-    @profiles = Profile.all
+    @profiles = Profile.search(params[:query])
+
+    respond_to do |format|
+      format.html
+      format.xlsx
+    end
   end
 
   def search
-    SearchService.run()
+    SearchService.run
   end
 end
