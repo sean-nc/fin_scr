@@ -2,7 +2,7 @@ class SearchTermsController < ApplicationController
   before_action :set_search_term, only: [:edit, :update, :destroy]
 
   def index
-    @search_terms = SearchTerm.all
+    @search_terms = SearchTerm.all.paginate(:page => params[:page], :per_page => 10)
   end
 
 

@@ -6,7 +6,7 @@ class StaticPagesController < ApplicationController
     @profiles = Profile.search(params[:query])
 
     respond_to do |format|
-      format.html
+      format.html { @profiles = @profiles.paginate(:page => params[:page], :per_page => 10) }
       format.xlsx
     end
   end
