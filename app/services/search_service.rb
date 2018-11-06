@@ -31,8 +31,6 @@ module SearchService
           p '503 error'
           %x[rake heroku_restart]
           return
-        rescue
-          next
         end
       end
     end
@@ -43,7 +41,7 @@ module SearchService
 
       for i in 0..10
         p 'Sleeping...'
-        r_num = rand(1..2)
+        r_num = rand(5..10)
         sleep r_num
         p i
 
@@ -52,27 +50,23 @@ module SearchService
         titles = []
         emails = []
 
-        r_num2 = rand(0..1)
-        r_num3 = rand(0..1)
-
         @page.search('.r').each do |title|
           title = title.text.split(' | ')[0]
           titles.push(title)
-          sleep r_num2
         end
 
         @page.search('.st').each do |el|
           el = el.text.downcase.gsub(/\n/,'')
           email = el.match(/[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+/)
           emails.push(email)
-          sleep r_num3
         end
 
         data = (merge_data(titles,emails))
         save_data(data)
 
-        page_number = @page.search('.cur').text.strip.to_i
-        add_bookmark(page_number, search_term)
+        url = get_url
+        page_number = get_page_number(url)
+        add_bookmark(search_term)
 
         next_link = @page.link_with(:text => 'Next') || @page.link_with(:text => "#{page_number + 1}")
 
@@ -83,7 +77,7 @@ module SearchService
         end
 
         p "NEXT LINK: "
-        p @page.link_with(:text => 'Next')
+        p next_link
         @page = next_link.click
       end
     end
@@ -110,17 +104,29 @@ module SearchService
       end
     end
 
-    def add_bookmark(current_page, search_term)
-      url = @agent.current_page.uri.to_s
+    def add_bookmark(search_term)
+      url = get_url
+      page = get_page_number(url)
 
       if search_term.bookmark.blank?
-        search_term.create_bookmark(page_number: current_page,
+        search_term.create_bookmark(page_number: page,
                                     url: url)
 
       else
-        search_term.bookmark.update_attributes(page_number: current_page,
+        search_term.bookmark.update_attributes(page_number: page,
                                                url: url)
       end
+    end
+
+    def get_url
+      @agent.current_page.uri.to_s
+    end
+
+    def get_page_number(url)
+      match = url.match(/start=(\d*)/)
+      match = match.to_a[1].to_i
+      page = match/10 + 1
+      page ||= 1
     end
   end
 end
