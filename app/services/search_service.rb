@@ -25,23 +25,6 @@ module SearchService
             page = @agent.submit(google_form)
           end
 
-          # delete below?
-
-          # unless search_term.bookmark.blank? || search_term.bookmark.page_number == 1
-          #   page_number = search_term.bookmark.page_number
-          #   page_link = page.link_with(text: "#{page_number}")
-
-          #   if page_link.blank?
-          #     url.searched = true
-          #     url.save
-          #   else
-          #     page = page_link.click
-          #     p "going to page #{page_number}"
-          #   end
-          # end
-
-          # delete above?
-
           loop_through_results(page, search_term)
 
         rescue Mechanize::ResponseCodeError
