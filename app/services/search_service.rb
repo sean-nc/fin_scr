@@ -7,7 +7,7 @@ module SearchService
       @agent = Mechanize.new()
       @agent.user_agent = Mechanize::AGENT_ALIASES.to_a.sample
 
-      term = SearchTerm.all.where(searched: false)
+      term = SearchTerm.where(searched: false)
       # order terms?
 
       term.each do |search_term|
@@ -91,7 +91,7 @@ module SearchService
         page_number = @page.search('.cur').text.strip.to_i
         add_bookmark(page_number, search_term)
 
-        next_link = @page.link_with(:text => 'Next') || @page.link_with(id: 'pnnext')
+        next_link = @page.link_with(:text => 'Next') || @page.link_with(:text => "#{page_number + 1}")
 
         unless next_link
           search_term.searched = true
@@ -131,14 +131,11 @@ module SearchService
       url = @agent.current_page.uri.to_s
 
       if search_term.bookmark.blank?
-        page_number = current_page + 1
-        page_number += 1 if page_number == 1
-        search_term.create_bookmark(page_number: page_number,
+        search_term.create_bookmark(page_number: current_page,
                                     url: url)
 
       else
-        page_number = search_term.bookmark.page_number + 1
-        search_term.bookmark.update_attributes(page_number: page_number,
+        search_term.bookmark.update_attributes(page_number: current_page,
                                                url: url)
       end
     end
