@@ -1,0 +1,30 @@
+//-------- Edit/New
+.terms-search {
+  max-width: 50rem;
+  margin: 2.5rem auto;
+  text-align: left;
+
+  input[type=submit] {
+    width: 50%;
+  }
+}
+
+//-------- Index
+.terms {
+  .term {
+    margin: 0 auto;
+    padding: 1.25rem;
+
+    &:nth-of-type(2n) {
+      background: $fintros-grey;
+    }
+
+    .bookmark-url {
+      font-size: 0.75rem;
+
+      b {
+        font-size: 1rem;
+      }
+    }
+  }
+}

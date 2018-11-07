@@ -1,28 +1,31 @@
-<%= form_with(model: search_term, local: true) do |form| %>
-  <% if search_term.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(search_term.errors.count, "error") %> prohibited this search_term from being saved:</h2>
+<div class="search terms-search">
+  <%= form_with(model: search_term, local: true) do |form| %>
+    <% if search_term.errors.any? %>
+      <div id="error_explanation">
+        <h4>Error</h4>
 
-      <ul>
-      <% search_term.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% search_term.errors.full_messages.each_with_index do |message| %>
+
+          <li style="list-style: none; font-size: .75rem; margin: 0"><b><%= index =+ 1 %>)</b> <%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+
+    <div class="field">
+      <%= form.label "Enter Query" %>
+      <%= form.text_area :query, size: "60x3" %>
+    </div>
+
+    <div class="field">
+      <%= form.label "Do you wish to search this term?" %>
+      <%= form.select :searched, [['No', true], ['Yes', false]] %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "CREATE" %>
     </div>
   <% end %>
-
-
-  <div class="field">
-    <%= form.label :query %>
-    <%= form.text_area :query %>
-  </div>
-
-  <div class="field">
-    <%= form.label :searched %>
-    <%= form.select :searched, [['Searched', true], ['Not Searched', false]] %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

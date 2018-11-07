@@ -1,0 +1,72 @@
+html, body {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.body {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 0.625rem;
+}
+
+.content {
+  width: 100%;
+  padding: 0.675rem;
+}
+
+p {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+a.button {
+  border: 1px solid $fintros-light-blue;
+  border-radius: 4px;
+  background: white;
+  padding: 1rem;
+  font-weight: 500;
+  font-size: 0.75rem;
+  box-shadow: 2px 2px $fintros-grey;
+  color: $fintros-blue;
+  margin: 1.25rem 0.675rem;
+
+  &:hover {
+    cursor: pointer;
+    background: $fintros-blue;
+    color: white;
+  }
+}
+
+a.delete-button {
+  background: white;
+  border: 1px solid $fintros-red;
+  color: $fintros-red;
+
+  &:hover {
+    color: white;
+    background: $fintros-red;
+    border-color: $fintros-red;
+  }
+}
+
+.pagination {
+  margin: 1.25rem 0;
+  text-align: center;
+
+  span, em, a {
+    display: inline;
+  }
+
+  .disabled {
+    color: $fintros-grey;
+  }
+
+  .current {
+    background: $fintros-blue;
+  }
+
+  a:hover {
+    background: $fintros-grey;
+  }
+}

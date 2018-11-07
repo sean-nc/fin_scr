@@ -1,42 +1,45 @@
-<h1>Search Terms</h1>
+<% if @search_terms %>
+  <h4>Search Terms (<%= @search_terms.count %>)</h4>
 
-  <% if @search_terms %>
+  <div class="terms">
     <% @search_terms.each do |search_term| %>
-      <ul>
-        <p>
-          <%= search_term.query %><br/>
-          Bookmark: page -
-          <% if search_term.bookmark.blank? %>
-            N/A
-          <% else %>
-            <%= search_term.bookmark.page_number %>
-            <br/>
-
-            Bookmark URL:
-              <% unless search_term.bookmark.url %>
-              N/A
-            <% else %>
-              <%= search_term.bookmark.url %>
-            <% end %>
-          <% end %>
-          <br/>
-          Searched:
+      <div class="term">
+        <div>
+          <b>Query:</b> <%= search_term.query %>
+        </div>
+        <div>
+          <b>Active Search:</b>
           <% if search_term.searched %>
-            Yes
-          <% else %>
             No
+          <% else %>
+            Yes
           <% end %>
-        </p>
-        <%= link_to 'Edit', edit_search_term_path(search_term) %>
-        <%= link_to 'Destroy', search_term, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </ul>
+        </div>
+        <% if search_term.bookmark.blank? %>
+          <div><b>Bookmark:</b> No</div>
+        <% else %>
+          <div>
+            <b>Bookmark Page: </b><%= search_term.bookmark.page_number %>
+            <div class="bookmark-url">
+              <b>Bookmark URL:</b>
+              <% unless search_term.bookmark.url %>
+                N/A
+              <% else %>
+                <%= search_term.bookmark.url %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
 
-      <br/>
-      <br/>
+        <%= link_to 'EDIT', edit_search_term_path(search_term), class: "button" %>
+        <%= link_to 'DELETE', search_term, method: :delete, data: { confirm: 'Are you sure?' },
+                                           class: "button delete-button" %>
+      </div>
 
     <% end %>
-  <% end %>
+  </div>
+<% else %>
+  <h2 style="text-align: center">There are no profiles.</h2>
+<% end %>
 
-<%= link_to 'New Search Term', new_search_term_path %>
-
-<%= will_paginate @search_terms %>
+<%= will_paginate @search_terms, inner_window: 1, outer_window: 1 %>

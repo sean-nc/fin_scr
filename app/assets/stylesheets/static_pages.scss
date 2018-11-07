@@ -1,0 +1,52 @@
+//---------- Home
+//---------- Profiles
+// search
+.search {
+  text-align: center;
+  max-width: 25rem;
+  margin: 0 auto 9.375rem;
+
+  h4 {
+    margin: 0;
+  }
+
+  p {
+    font-size: 0.75rem;
+    margin: 0;
+  }
+
+  input {
+    margin: 0.3125rem;
+    width: 100%;
+  }
+
+  input[type=submit] {
+    border-color: $fintros-light-blue;
+    border-radius: 4px;
+    padding: 1rem;
+    font-weight: 500;
+    font-size: 0.75rem;
+    box-shadow: 2px 2px $fintros-grey;
+    color: $fintros-blue;
+
+    &:hover {
+      cursor: pointer;
+      background: $fintros-blue;
+      color: white;
+    }
+  }
+}
+
+// profiles
+.profiles {
+  .profile {
+    margin: 0 auto;
+    padding: 1.25rem;
+
+    &:nth-of-type(2n) {
+      background: $fintros-grey;
+    }
+  }
+}
+
+//---------- Search

@@ -1,25 +1,31 @@
-<%= form_tag('/profiles', method: :get) do %>
-  <%= label_tag "Search by name or email" %>
-  <%= text_field_tag(:query) %>
+<div class="search">
+  <%= form_tag('/profiles', method: :get) do %>
+    <h4>Search Profiles</h4>
+    <p>please enter a name or email</p>
+    <%= text_field_tag(:query) %>
 
-  <%= submit_tag('search') %>
-<% end %>
+    <%= submit_tag('SEARCH') %>
+  <% end %>
+</div>
 
 <% if @profiles.blank? %>
-  There are no profiles.
+  <h2 style="text-align: center">There are no profiles.</h2>
+<% else %>
+  <h4>Profiles (<%= @profiles.count %>)</h4>
+
+  <div class="profiles">
+    <% @profiles.each do |profile| %>
+      <div class="profile">
+        <div><b>ID:</b> <%= profile.id %></div>
+        <div><b>Email:</b> <%= profile.email %></div>
+        <div><b>Title:</b> <%= profile.title %></div>
+      </div>
+    <% end %>
+  </div>
+
+
+  <%= link_to "Download as .xlsx (#{@profiles.count} profiles)",
+              profiles_path(format: :xlsx, query: params[:query]), class: "button" %>
+
+  <%= will_paginate @profiles, inner_window: 1, outer_window: 1 %>
 <% end %>
-
-<% @profiles.each do |profile| %>
-  <p>
-    <%= profile.id %> |
-    <%= profile.email %><br/>
-    <%= profile.title %><br/>
-  </p>
-<% end %>
-
-<p>
-  <%= link_to 'Donwload as .xlsx',
-              profiles_path(format: :xlsx, query: params[:query]) %>
-</p>
-
-<%= will_paginate @profiles %>

@@ -20,7 +20,7 @@ module SearchService
             page = @agent.get(search_term.bookmark.url)
           else
             page = @agent.get('https://google.ca/')
-            google_form = page.form_with(name: 'f') || page.form_with(name: 'q')
+            google_form = page.form_with(name: 'f') || page.forms.first
             google_form.q = search_term.query
             page = @agent.submit(google_form)
           end
