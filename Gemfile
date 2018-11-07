@@ -65,6 +65,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'mechanize' # web scraper
 gem 'platform-api' # heroku api
 gem 'rubyzip', '>= 1.2.1' # axlsx required
+gem 'axlsx_styler' # axlsx styler
 gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844' # excel exporting
 gem 'axlsx_rails' # excel exporting
 gem 'will_paginate', '~> 3.1.0' # pagination
