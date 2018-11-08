@@ -1,0 +1,58 @@
+<div class="about-bar">
+  <h4>Go To</h4>
+  <li onclick="getElementById('setup').scrollIntoView();">Setup</li>
+  <li onclick="getElementById('search-terms').scrollIntoView();">Search Terms</li>
+  <li onclick="getElementById('searching').scrollIntoView();">Searching</li>
+</div>
+
+<div class="guide">
+  <div class="about-div" id="setup">
+    <h2>Setup</h2>
+    <p>There are multiple instances of the same web application on Heroku.<br/>
+    I’ve created a script that you run locally to loop through each app.</p>
+    Everytime an app is hit by the script it:
+    <ol>
+      <li>Starts the search function.</li>
+      <li>Loops through each search term that still needs to be searched.</li>
+      <li>Collects the emails from that search term and saves them to the database.</li>
+      <li>If Google blocks the server IP, the server restarts and it moves to the next app.</li>
+      <li>The script will run through this process until there are no more search terms that need to be searched.</li>
+    </ol>
+    <p>Download the ruby script to run locally here:
+    <%= link_to 'Scrape Trigger', 'https://github.com/sean-nc/fin_scrape_trig', target: '_blank' %></p>
+    Once you’ve downloaded it:
+    <ol>
+      <li>In your terminal, go into the directory it is in.</li>
+      <li>Type “ruby scrape_trigger.rb" and press enter.</li>
+    </ol>
+  </div>
+
+  <div class="about-div" id="search-terms">
+    <h2>Search Terms</h2>
+    <p>You can add new search terms by form (one at a time) or by an Excel spreadsheet (as many as you’d like). Enter the term how you would if you were searching in Google.</p>
+
+    <b>Single Term:</b>
+    <ol>
+      <li>Go to the “New Terms” link under the Admin Panel.</li>
+      <li>Fill out the form and click "Create".</li>
+      <li>Your new search term is created.</li>
+    </ol>
+
+    <b>Excel Spreadsheet:</b>
+    <ol>
+      <li>Create a new spreadsheet.</li>
+      <li>Add one search term per line.</li>
+      <li>Save as .xlsx or .xls</li>
+      <li>Go to the “New Terms” link under the Admin Panel.</li>
+      <li>Upload the file where it says “Import Spreadsheet”.</li>
+      <li>Click “Upload”.</li>
+      <li>Your new search terms are created.</li>
+    </ol>
+  </div>
+
+
+  <div class="about-div" id="searching">
+    <h2>Searching</h2>
+    <p>I suggest using the locally run script, but if you’d like to use the web application itself, simply click on “Start Search”, this will run the search for possibly 2 or 3 pages before Google will block the server IP and this will trigger the server to restart.</p>
+  </div>
+</div>

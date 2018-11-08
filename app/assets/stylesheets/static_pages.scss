@@ -1,4 +1,36 @@
-//---------- Home
+//---------- About
+.about-bar {
+  margin-left: 5rem;
+
+  li {
+    list-style: none;
+    padding: 0.250rem 0;
+    cursor: pointer;
+    margin-left: 2.5rem;
+
+    &:hover {
+      font-weight: 500;
+    }
+  }
+}
+
+.guide {
+  padding: 6.25rem 0;
+
+  .about-div {
+    padding: 5rem;
+
+    &:nth-of-type(2n) {
+      background: $fintros-grey;
+    }
+
+    ol {
+      padding-left: 0.625rem;
+      font-size: 0.875rem;
+    }
+  }
+}
+
 //---------- Profiles
 // search
 .search {
@@ -48,5 +80,3 @@
     }
   }
 }
-
-//---------- Search

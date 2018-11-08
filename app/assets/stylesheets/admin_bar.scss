@@ -1,6 +1,7 @@
 .admin-bar {
-  min-width: 12.5rem;
+  width: 12.5rem;
   padding: 0.625rem;
+  position: fixed;
 
   h2 {
     color: $fintros-header;

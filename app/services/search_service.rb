@@ -8,7 +8,6 @@ module SearchService
       @agent.user_agent = Mechanize::AGENT_ALIASES.to_a.sample
 
       term = SearchTerm.where(searched: false)
-      # order terms?
 
       term.each do |search_term|
         if search_term.searched

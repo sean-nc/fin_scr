@@ -14,11 +14,16 @@ class SearchTermsController < ApplicationController
   end
 
   def create
-    @search_term = SearchTerm.new(search_term_params)
-    if @search_term.save
-      redirect_to search_terms_url, notice: 'Search term was successfully created.'
+    if params[:file]
+      SearchTerm.import(params[:file])
+      redirect_to search_terms_url, notice: 'File was imported.'
     else
-      render :new
+      @search_term = SearchTerm.new(search_term_params)
+      if @search_term.save
+        redirect_to search_terms_url, notice: 'Search term was successfully created.'
+      else
+        render :new
+      end
     end
   end
 
@@ -41,6 +46,6 @@ class SearchTermsController < ApplicationController
     end
 
     def search_term_params
-      params.require(:search_term).permit(:query, :searched)
+      params.require(:search_term).permit(:query)
     end
 end
