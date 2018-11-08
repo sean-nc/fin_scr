@@ -1,24 +1,38 @@
 //---------- About
 .about-bar {
-  margin-left: 5rem;
+  // position: fixed;
+  padding: 0.625rem;
+  background: white;
+  width: 100%;
+  top: 0;
+  font-size: 0.875rem;
 
   li {
     list-style: none;
     padding: 0.250rem 0;
     cursor: pointer;
-    margin-left: 2.5rem;
+    margin-left: 1.25rem;
+    display: inline-block;
 
     &:hover {
       font-weight: 500;
     }
+
+    b {
+      cursor: auto;
+    }
   }
 }
 
-.guide {
-  padding: 6.25rem 0;
+.about-content {
+  padding: 3.125 0 12.5rem 0;
+
+  .about-collection-div {
+    padding: 2.5rem;
+  }
 
   .about-div {
-    padding: 5rem;
+    padding: 2.5rem 1.25rem;
 
     &:nth-of-type(2n) {
       background: $fintros-grey;

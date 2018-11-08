@@ -1,58 +1,142 @@
 <div class="about-bar">
-  <h4>Go To</h4>
-  <li onclick="getElementById('setup').scrollIntoView();">Setup</li>
-  <li onclick="getElementById('search-terms').scrollIntoView();">Search Terms</li>
+  <li><b>Guide</b></li>
+  <li onclick="getElementById('walkthrough').scrollIntoView();">Walkthrough</li>
+  <li onclick="getElementById('scrape').scrollIntoView();">Scrape</li>
+  <li onclick="getElementById('single-search').scrollIntoView();">Enter Single Term</li>
+  <li onclick="getElementById('multiple-search').scrollIntoView();">Import Terms</li>
+  <li onclick="getElementById('search-profiles').scrollIntoView(false);">Search Profiles</li>
+  <li onclick="getElementById('download-profiles').scrollIntoView();">Download Profiles</li>
+  <br/>
+  <li><b>About</b></li>
+  <li onclick="getElementById('multiple-applications').scrollIntoView();">Multiple Apps</li>
+  <li onclick="getElementById('trigger-script').scrollIntoView();">Trigger Script</li>
+  <li onclick="getElementById('shared-database').scrollIntoView();">Shared Database</li>
   <li onclick="getElementById('searching').scrollIntoView();">Searching</li>
 </div>
 
-<div class="guide">
-  <div class="about-div" id="setup">
-    <h2>Setup</h2>
-    <p>There are multiple instances of the same web application on Heroku.<br/>
-    I’ve created a script that you run locally to loop through each app.</p>
-    Everytime an app is hit by the script it:
-    <ol>
-      <li>Starts the search function.</li>
-      <li>Loops through each search term that still needs to be searched.</li>
-      <li>Collects the emails from that search term and saves them to the database.</li>
-      <li>If Google blocks the server IP, the server restarts and it moves to the next app.</li>
-      <li>The script will run through this process until there are no more search terms that need to be searched.</li>
-    </ol>
-    <p>Download the ruby script to run locally here:
-    <%= link_to 'Scrape Trigger', 'https://github.com/sean-nc/fin_scrape_trig', target: '_blank' %></p>
-    Once you’ve downloaded it:
-    <ol>
-      <li>In your terminal, go into the directory it is in.</li>
-      <li>Type “ruby scrape_trigger.rb" and press enter.</li>
-    </ol>
+
+<div class="about-content">
+  <div class="about-collection-div">
+    <div class="about-div">
+      <p>This web application is designed to scrape Google and save the results to the database as profiles. It will use the search queries that you enter and return the emails it finds within those queries.</p><br/>
+
+      <h4>How It Works</h4>
+      <p>There are 5 identical web applications that are on different Heroku servers.<br/>
+      In any of the Heroku web application you can create search terms to be scraped.<br/>
+      All the web applications share the same database so terms and results are shared amongst all web applications.<br/>
+      There is a “trigger” script that you download and run locally, it iterates through each Heroku server scraping Google.<br/>
+      After the program is done scraping, you can download the data to an Excel file from any of the 5 Heroku web applications.</p>
+    </div>
   </div>
 
-  <div class="about-div" id="search-terms">
-    <h2>Search Terms</h2>
-    <p>You can add new search terms by form (one at a time) or by an Excel spreadsheet (as many as you’d like). Enter the term how you would if you were searching in Google.</p>
+  <div class="about-collection-div">
+    <h2>Guide</h2>
+    <div class="about-div" id="walkthrough">
+      <h4>Walkthrough Example</h4>
+      <ol>
+        <li>Download the "trigger" script -
+          <%= link_to 'here', 'https://github.com/sean-nc/fin_scrape_trig', target: '_blank' %>.
+        </li>
+        <li>Go to
+          <%= link_to "Fintros Scraper", 'https://finscrap1.herokuapp.com/search_terms/new', target: '_blank' %>.
+        </li>
+        <li>Enter a new search term in the "Enter query" text area.</li>
+        <li>Click the "submit" button.</li>
+        <li>Open up your computer's terminal</li>
+        <li>In your terminal, navigate to the folder that has the "trigger" script.</li>
+        <li>Type "ruby scrape_trigger.rb" into the terminal and press enter.</li>
+      </ol>
+    </div>
 
-    <b>Single Term:</b>
-    <ol>
-      <li>Go to the “New Terms” link under the Admin Panel.</li>
-      <li>Fill out the form and click "Create".</li>
-      <li>Your new search term is created.</li>
-    </ol>
+    <div class="about-div" id="single-search">
+      <h4>How To Create a Single Search Term</h4>
+      <ol>
+        <li>Go to
+          <%= link_to "create new term",
+              'https://finscrap1.herokuapp.com/search_terms/new', target: '_blank' %>.
+        </li>
+        <li>Fill out the "Enter query" text area with the query you want to search for.</li>
+        <li>Click "submit".</li>
+        <li>Your search term has been created.</li>
+      </ol>
+    </div>
 
-    <b>Excel Spreadsheet:</b>
-    <ol>
-      <li>Create a new spreadsheet.</li>
-      <li>Add one search term per line.</li>
-      <li>Save as .xlsx or .xls</li>
-      <li>Go to the “New Terms” link under the Admin Panel.</li>
-      <li>Upload the file where it says “Import Spreadsheet”.</li>
-      <li>Click “Upload”.</li>
-      <li>Your new search terms are created.</li>
-    </ol>
+    <div class="about-div" id="multiple-search">
+      <h4>How To Import an Excel Spreadsheet of Terms</h4>
+      <ol>
+        <li>Locally, create a new Excel spreadsheet.</li>
+        <li>Add only one search term per line. Enter them exactly how you would in Google search.</li>
+        <li>Save locally as .xlsx or .xls.</li>
+        <li>Go to
+          <%= link_to "create new term",
+              'https://finscrap1.herokuapp.com/search_terms/new', target: '_blank' %>.
+        </li>
+        <li>Under "Import Spreadsheets", click on the "Choose file" button.</li>
+        <li>Select the Excel file you wish to import.</li>
+        <li>Click "Upload".</li>
+        <li>Your new search terms have been created.</li>
+      </ol>
+    </div>
+
+    <div class="about-div" id="scrape">
+      <h4>How To Scrape</h4>
+      <ol>
+        <li>Download the “trigger” script -
+          <%= link_to 'here', 'https://github.com/sean-nc/fin_scrape_trig', target: '_blank' %>.
+        </li>
+        <li>Open your terminal.</li>
+        <li>In your terminal, go to the folder that has the "trigger" script.</li>
+        <li>Type “ruby scrape_trigger.rb” into the terminal and press enter.</li>
+      </ol>
+    </div>
+
+    <div class="about-div" id="search-profiles">
+      <h4>How To Search Profiles</h4>
+      <ol>
+        <li>Go to the
+          <%= link_to "profiles page",
+              'https://finscrap1.herokuapp.com/profiles', target: '_blank' %>.
+        </li>
+        <li>Enter the name or email you wish to find into the search bar.</li>
+        <li>Click "search".</li>
+        <li>All profiles containing the name or email will show.</li>
+      </ol>
+    </div>
+
+    <div class="about-div" id="download-profiles">
+      <h4>How To Download Profiles</h4>
+      <ol>
+        <li>Go to the
+          <%= link_to "profiles page",
+              'https://finscrap1.herokuapp.com/profiles', target: '_blank' %>.
+        </li>
+        <li>Scroll to the bottom of the page.</li>
+        <li>Click on the "Download as .xlsx" button.</li>
+        <li>The profiles will download as an Excel spreadsheet.</li>
+      </ol>
+    </div>
   </div>
 
+  <div class="about-collection-div">
+    <h2>About</h2>
+    <div class="about-div" id="multiple-applications">
+      <h4>Multiple Heroku Applications</h4>
+      <p>There are multiple web applications (all identical) on Heroku because Google blocks the server's IP if it believes it is making robotic movements. Everytime one of the web application is blocked, the Heroku server restarts, this resets the IP, making it able to crawl Google again.</p>
+    </div>
 
-  <div class="about-div" id="searching">
-    <h2>Searching</h2>
-    <p>I suggest using the locally run script, but if you’d like to use the web application itself, simply click on “Start Search”, this will run the search for possibly 2 or 3 pages before Google will block the server IP and this will trigger the server to restart.</p>
+    <div class="about-div" id="trigger-script">
+      <h4>Trigger Script</h4>
+      <p>The script was created to run locally to control the search function of the Heroku web applications. The purpose of the “trigger” script is that when a web application gets blocked by Google, the “trigger” script moves to the next web application. The array of Heroku web applications are in a loop that runs until there are no search terms left to be searched. There are delays in the “trigger” script to allow for the Heroku servers to restart before being used again.</p>
+    </div>
+
+    <div class="about-div" id="shared-database">
+      <h4>Shared Database</h4>
+      <p>All the Heroku web applications share a single database. This means that all the results and the search terms are accessible on any of the Heroku web applications. This also adds for validation that each query and email is unique.</p>
+    </div>
+
+    <div class="about-div" id="searching">
+      <h4>Searching</h4>
+      <p>It is suggested that you use the “trigger” script that I’ve provided. However, the search function is run by going to "https://finscrap1.herokuapp.com/search". This will probably run the Heroku web application for 2 to 3 pages, and then the server will restart.</p>
+    </div>
   </div>
 </div>
