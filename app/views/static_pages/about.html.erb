@@ -33,6 +33,7 @@
     <h2>Guide</h2>
     <div class="about-div" id="walkthrough">
       <h4>Walkthrough Example</h4>
+      <p>With the "trigger" script.</p>
       <ol>
         <li>Download the "trigger" script -
           <%= link_to 'here', 'https://github.com/sean-nc/fin_scrape_trig', target: '_blank' %>.
@@ -45,6 +46,19 @@
         <li>Open up your computer's terminal</li>
         <li>In your terminal, navigate to the folder that has the "trigger" script.</li>
         <li>Type "ruby scrape_trigger.rb" into the terminal and press enter.</li>
+      </ol>
+      <p>Through the "trigger" website.</p>
+      <ol>
+        <li>Go to
+          <%= link_to "Fintros Scraper", 'https://finscrap1.herokuapp.com/search_terms/new', target: '_blank' %>.
+        </li>
+        <li>Enter a new search term in the "Enter query" text area.</li>
+        <li>Click the "submit" button.</li>
+        <li>Go to the
+          <%= link_to 'Trigger Site', 'https://fintrigger.herokuapp.com/', target: '_blank' %>.
+        </li>
+        <li>Click "search".</li>
+        <li>The webpage will load until it is done scraping.</li>
       </ol>
     </div>
 
@@ -80,6 +94,7 @@
 
     <div class="about-div" id="scrape">
       <h4>How To Scrape</h4>
+      <p>With the "trigger" script.</p>
       <ol>
         <li>Download the “trigger” script -
           <%= link_to 'here', 'https://github.com/sean-nc/fin_scrape_trig', target: '_blank' %>.
@@ -87,6 +102,14 @@
         <li>Open your terminal.</li>
         <li>In your terminal, go to the folder that has the "trigger" script.</li>
         <li>Type “ruby scrape_trigger.rb” into the terminal and press enter.</li>
+      </ol>
+      <p>Through the "trigger" website.</p>
+      <ol>
+        <li>Go to the
+          <%= link_to 'Trigger Site', 'https://fintrigger.herokuapp.com/', target: '_blank' %>.
+        </li>
+        <li>Click "search".</li>
+        <li>The webpage will load until it is done scraping.</li>
       </ol>
     </div>
 
@@ -135,8 +158,11 @@
     </div>
 
     <div class="about-div" id="searching">
-      <h4>Searching</h4>
-      <p>It is suggested that you use the “trigger” script that I’ve provided. However, the search function is run by going to "https://finscrap1.herokuapp.com/search". This will probably run the Heroku web application for 2 to 3 pages, and then the server will restart.</p>
+      <h4>Scraping</h4>
+      <p>It is suggested that you use the “trigger” script that I’ve provided. However, I've set up a "trigger" site
+          <%= link_to 'here', 'https://fintrigger.herokuapp.com/', target: '_blank' %>.
+          You can also scrape terms this way.
+      </p>
     </div>
   </div>
 </div>
